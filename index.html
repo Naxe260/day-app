@@ -2462,7 +2462,11 @@
     });
     inner.appendChild(mh);
 
-    (finance.payments||[]).forEach(function(p){
+    (finance.payments||[]).slice().sort(function(a,b){
+      var d=(a.day||1)-(b.day||1);
+      if(d) return d;
+      return String(a.name||'').localeCompare(String(b.name||''),'ru');
+    }).forEach(function(p){
       var r=document.createElement('div'); r.className='pay-row';
       var nm=document.createElement('button');
       nm.className='pay-name';
